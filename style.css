@@ -1,0 +1,38 @@
+#generate{
+    background: darkred;
+    color: white;
+    border-radius: 2rem;
+    border: none;
+    padding: 1em;
+}
+div{
+    border-top: lightgray solid;
+    margin-top: 1em;
+    padding-top: 1em;
+}
+container{
+    display: block;
+    border: dashed gray;
+    padding: 2em;
+    text-align: center;
+}
+body{
+    color: rgb(68, 68, 68);
+    font-family: sans-serif;
+    width: 80%;
+    margin: auto;
+    background: rgb(241, 241, 241);
+}
+h1{
+    text-align: center;
+}
+h2{
+    border-bottom: lightgray solid;
+    padding-bottom: 1em;
+}
+section{
+    background: white;
+    border-radius: 1%;
+    padding: 1em;
+    box-shadow: 1em rgb(46, 46, 46);
+}
