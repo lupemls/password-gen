@@ -1,8 +1,8 @@
-let userCharType = prompt('Would you like your password to have lowercase, capital, numbers and/or symbols?');
-let length = prompt('How long would you like your password to be?');
-let password = "";
-let containerEl = document.querySelector("container");
-let buttonEl = document.querySelector("#generate");
+let userInput = prompt('Would you like your password to have "lowercase", "capital", "numbers" and/or "symbols"?');
+let length = prompt('How long would you like your password to be? Must be a number between 8 and 128');
+let containerEl = document.querySelector('container');
+let buttonEl = document.querySelector('#generate');
+let userInputLC = userInput.toLowerCase();
 
 // array that will contain all characters that will be used in password generation
 let generatorArray = []; 
@@ -14,23 +14,39 @@ let charTypes = {
     symbols : [' ','!','\"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','=','>','?','@','[','\\',']','^','_','`','{','|','}','~']
 }
 
-for(let key in charTypes){
-    addCharTypes(key);
+//checks if the user input for length of password is within 8 to 128 and is a number
+if(length < 8 || length > 128 || typeof parseInt(length) !== 'number'){
+    length = prompt('Please input a number between 8 and 128');
 }
+//attempts to construct an array of possible random choices
+addCharTypes();
+
+//if it could not add anything to the random choices, it will prompt the user again
+if(generatorArray.length == 0){
+    userInput = prompt('Please input "lowercase", "capital", "numbers", and/or "symbols"');
+    userInputLC = userInput.toLowerCase();
+    addCharTypes();
+}
+
 //will determine what char types the user has input and add them to generatorArray to use for password generation
-function addCharTypes(key){
-    if(userCharType.toLowerCase().includes(key)){
-        generatorArray = generatorArray.concat(charTypes[key]);
-    }
+function addCharTypes(){
+    for(let key in charTypes){
+        if(userInputLC.includes(key)){
+            generatorArray = generatorArray.concat(charTypes[key]);
+        }
+    }    
 }
+//generates the password of a given length by the user, writing to the page
 function passwordGen(length){
+    let password = '';
     for(let i = 0; i < parseInt(length); i++){
         rand = Math.floor(Math.random()*generatorArray.length);
         password = password + generatorArray[rand];
     }
-    console.log(password);
     containerEl.textContent = password;
 }
-passwordGen(length);
 
-// buttonEl.addEventListener("click", passwordGen);
+//generates a password when clicking Generate Password button
+buttonEl.addEventListener('click', function(){
+    passwordGen(length);
+});
